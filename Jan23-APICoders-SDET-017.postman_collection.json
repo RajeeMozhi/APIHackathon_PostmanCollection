@@ -1,0 +1,1145 @@
+{
+	"info": {
+		"_postman_id": "13acd8a1-cdf2-4f70-8d0c-83be33479f60",
+		"name": "Jan23-APICoders-SDET-017",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25256706"
+	},
+	"item": [
+		{
+			"name": "Programs",
+			"item": [
+				{
+					"name": "Get All Programs",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/allPrograms",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"allPrograms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create and Save Program1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = pm.response.json();\r",
+									"var random=Math.floor((Math.random()*1000));\r",
+									"console.log(random);\r",
+									"var proId=response.programId;\r",
+									"console.log(proId);\r",
+									"\r",
+									"pm.globals.set(\"programId\", proId);\r",
+									"var proName = response.programName;\r",
+									"console.log(proName);\r",
+									"pm.globals.set(\"programName\", proName);\r",
+									"\r",
+									"//var proDesc=response.programDescription;\r",
+									"////console.log(proDesc);\r",
+									"//pm.globals.set(\"programDescription\",proDesc);\r",
+									"\r",
+									"\r",
+									"pm.test(\"Successful POST request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"\r",
+									"//pm.environment.set(\"Random Number\",pm.variables.replaceIn('{{$randomFirstName}}'));\r",
+									"pm.environment.set(\"Random Number\",Math.floor((Math.random()*1000)));\r",
+									"\r",
+									"var current_timestamp = new Date();\r",
+									"postman.setEnvironmentVariable(\"current_timestamp\",current_timestamp.toISOString());"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n{\r\n    \"programName\": \"Jan23-APICoders-SDET-017-{{Random Number}}\",\r\n    \"programDescription\": \"Database Administration Program in 100 days\",\r\n    \"programStatus\": \"Active\",\r\n    \"creationTime\": \"{{current_timestamp}}\",\r\n    \"lastModTime\": \"{{current_timestamp}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/saveprogram",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"saveprogram"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Program By ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"programId\": {{programId}},\r\n    \"programName\":\"{{programName}}\",\r\n    \"programDescription\":\"Database Administration Program in 100 days {{Random Number}}\",\r\n    \"programStatus\": \"Active\",\r\n    \"creationTime\": \"2023-01-14T10:37:26.583+00:00\",\r\n    \"lastModTime\": \"2023-01-14T10:37:26.583+00:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/putprogram/{{programId}}",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"putprogram",
+								"{{programId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Program By ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Pragram Id is deleted successfully\",function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/deletebyprogid/{{programId}}",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"deletebyprogid",
+								"{{programId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create and Save Program2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = pm.response.json();\r",
+									"var random=Math.floor((Math.random()*1000));\r",
+									"console.log(random);\r",
+									"var proId=response.programId;\r",
+									"console.log(proId);\r",
+									"pm.globals.set(\"programId\", proId);\r",
+									"\r",
+									"var proName = response.programName;\r",
+									"console.log(proName);\r",
+									"pm.globals.set(\"programName\", proName);\r",
+									"\r",
+									"pm.test(\"Successful POST request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"\r",
+									"//pm.environment.set(\"Random Number\",pm.variables.replaceIn('{{$randomFirstName}}'));\r",
+									"pm.environment.set(\"Random Number\",Math.floor((Math.random()*1000)));\r",
+									"\r",
+									"var current_timestamp = new Date();\r",
+									"postman.setEnvironmentVariable(\"current_timestamp\",current_timestamp.toISOString());"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n{\r\n    \"programName\": \"Jan23-APICoders-SDET-017-{{Random Number}}\",\r\n    \"programDescription\": \"Database Administration Program in 100 days\",\r\n    \"programStatus\": \"Active\",\r\n    \"creationTime\": \"{{current_timestamp}}\",\r\n    \"lastModTime\": \"{{current_timestamp}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/saveprogram",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"saveprogram"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Program By Name",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									" var response=pm.response.json;\r",
+									"    console.log(response);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"\r",
+									"   \r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n        \"programId\": {{programId}},\r\n        \"programName\": \"{{programName}}\",\r\n        \"programDescription\": \"Learn and become an expert in PostgreSQL100 in 2 weeks {{Random Number}}\",\r\n        \"programStatus\": \"Active\",\r\n        \"creationTime\": \"2023-01-10T01:13:00.000+00:00\",\r\n        \"lastModTime\": \"2023-01-10T05:13:00.000+00:00\"\r\n          \r\n }     \r\n    \r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/program/{{programName}}",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"program",
+								"{{programName}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Program By Program Name",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/deletebyprogname/{{programName}}",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"deletebyprogname",
+								"{{programName}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Program By ID  after deletion",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/programs/{{programId}}",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"programs",
+								"{{programId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create and Save Program3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = pm.response.json();\r",
+									"var random=Math.floor((Math.random()*1000));\r",
+									"console.log(random);\r",
+									"var proId=response.programId;\r",
+									"console.log(proId);\r",
+									"\r",
+									"pm.globals.set(\"programId\", proId);\r",
+									"\r",
+									"\r",
+									"//var proDesc=response.programDescription;\r",
+									"////console.log(proDesc);\r",
+									"//pm.globals.set(\"programDescription\",proDesc);\r",
+									"\r",
+									"\r",
+									"pm.test(\"Successful POST request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"\r",
+									"//pm.environment.set(\"Random Number\",pm.variables.replaceIn('{{$randomFirstName}}'));\r",
+									"pm.environment.set(\"Random Number\",Math.floor((Math.random()*1000)));\r",
+									"\r",
+									"var current_timestamp = new Date();\r",
+									"postman.setEnvironmentVariable(\"current_timestamp\",current_timestamp.toISOString());"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n{\r\n    \"programName\": \"Jan23-APICoders-SDET-017-{{Random Number}}\",\r\n    \"programDescription\": \"Database Administration Program in 100 days\",\r\n    \"programStatus\": \"Active\",\r\n    \"creationTime\": \"{{current_timestamp}}\",\r\n    \"lastModTime\": \"{{current_timestamp}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/saveprogram",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"saveprogram"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Program By ID2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/programs/{{programId}}",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"programs",
+								"{{programId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Batches",
+			"item": [
+				{
+					"name": "Get Batches",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/batches",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"batches"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a Batch",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"Random Batch\",pm.variables.replaceIn('{{$randomFirstName}}'));"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = pm.response.json();\r",
+									"var bId=response.batchId;\r",
+									"console.log(bId);\r",
+									"\r",
+									"pm.globals.set(\"batchId\", bId);\r",
+									"\r",
+									"pm.test(\"Successful POST request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n       \r\n        \"batchName\": \"GeneralNumpy{{Random Batch}}\",\r\n        \"batchDescription\": \"Updated by Postman\",\r\n        \"batchStatus\": \"Active\",\r\n        \"batchNoOfClasses\": 12,\r\n        \"programId\": 5743,\r\n        \"programName\": \"Jan23-APICoders-SDET-017-834\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/batches/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"batches",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Batch By Batch ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/batches/batchId/{{batchId}}",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"batches",
+								"batchId",
+								"{{batchId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a Batch2",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"Random Batch\",pm.variables.replaceIn('{{$randomFirstName}}'));"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = pm.response.json();\r",
+									"var bId=response.batchId;\r",
+									"console.log(bId);\r",
+									"\r",
+									"pm.globals.set(\"batchId\", bId);\r",
+									"\r",
+									"pm.test(\"Successful POST request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n        \r\n        \"batchName\": \"GeneralNumpy{{Random Batch}}\",\r\n        \"batchDescription\": \"Updated by Postman\",\r\n        \"batchStatus\": \"Active\",\r\n        \"batchNoOfClasses\": 12,\r\n        \"programId\": 5743,\r\n        \"programName\": \"Jan23-APICoders-SDET-017-834\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/batches/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"batches",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Batch By ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n   \"batchId\": \"{{batchId}}\",\r\n    \"batchName\": \"GeneralNumpyL{{Random Number}}\",\r\n    \"batchDescription\": \"Updated by Postman\",\r\n    \"batchStatus\": \"Active\",\r\n    \"batchNoOfClasses\": 12,\r\n    \"programId\": 5743,\r\n    \"programName\": \"Jan23-APICoders-SDET-017-834\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/batches/{{batchId}}",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"batches",
+								"{{batchId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Batch By ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/batches/{{batchId}}",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"batches",
+								"{{batchId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Batch By Program ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/batches/program/:programId",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"batches",
+								"program",
+								":programId"
+							],
+							"variable": [
+								{
+									"key": "programId",
+									"value": "5743"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Batch By Batch Name",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/batches/batchName/:batchName",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"batches",
+								"batchName",
+								":batchName"
+							],
+							"variable": [
+								{
+									"key": "batchName",
+									"value": "GeneralNumpyEllis"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Negative scenarios",
+			"item": [
+				{
+					"name": "Update Batch with few fields in body",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"batchId\": 990,\r\n    \"batchName\": \"GeneralNumpyIsmael11\",\r\n    \"batchDescription\": \"Updated by Postman\"\r\n }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/batches/:batchId",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"batches",
+								":batchId"
+							],
+							"variable": [
+								{
+									"key": "batchId",
+									"value": "990"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Program with few fields in body",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"programName\": \"Jan23-APICoders-SDET-017-{{Random Number}}\",\r\n    \"programDescription\": \"Database Administration Program in 100 days\",\r\n    \"creationTime\": \"{{current_timestamp}}\",\r\n    \"lastModTime\": \"{{current_timestamp}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/saveprogram",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"saveprogram"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Batch By Id which is already deleted",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/batches/batchId/:batchId",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"batches",
+								"batchId",
+								":batchId"
+							],
+							"variable": [
+								{
+									"key": "batchId",
+									"value": "250"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Batch with empty values in body",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"batchId\": 990,\r\n    \"batchName\": \"GeneralNumpyIsmael11\",\r\n    \"batchDescription\": \"Updated by Postman\",\r\n    \"batchStatus:,\r\n    \"batchNoOfClasses\": 12,\r\n    \"programId\": 1569,\r\n    \"programName\": \"Jan23-APICoders-SDET-017\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/batches/:batchId",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"batches",
+								":batchId"
+							],
+							"variable": [
+								{
+									"key": "batchId",
+									"value": "990"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a batch by Id which is already deleted",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/batches/:batchId",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"batches",
+								":batchId"
+							],
+							"variable": [
+								{
+									"key": "batchId",
+									"value": "537"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Other Validations",
+			"item": [
+				{
+					"name": "Create - Schema level validation",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = pm.response.json();\r",
+									"var random=Math.floor((Math.random()*1000));\r",
+									"console.log(random);\r",
+									"var proId=response.programId;\r",
+									"console.log(proId);\r",
+									"\r",
+									"pm.globals.set(\"programId\", proId);\r",
+									"var proName = response.programName;\r",
+									"console.log(proName);\r",
+									"pm.globals.set(\"programName\", proName);\r",
+									"\r",
+									"//var proDesc=response.programDescription;\r",
+									"////console.log(proDesc);\r",
+									"//pm.globals.set(\"programDescription\",proDesc);\r",
+									"const schema = {\r",
+									"    \"type\": \"object\",\r",
+									"            \"additionalProperties\": false,\r",
+									"            \"properties\": {\r",
+									"                \"programId\": {\r",
+									"                    \"type\": \"integer\"\r",
+									"                },\r",
+									"                \"programName\": {\r",
+									"                    \"type\": \"string\"\r",
+									"                },\r",
+									"                \"programDescription\": {\r",
+									"                    \"type\": \"string\"\r",
+									"                },\r",
+									"                \"programStatus\": {\r",
+									"                    \"type\": \"string\"\r",
+									"                },\r",
+									"                \"creationTime\": {\r",
+									"                    \"type\": \"string\"\r",
+									"                },\r",
+									"                \"lastModTime\": {\r",
+									"                    \"type\": \"string\"\r",
+									"                }\r",
+									"            },\r",
+									"            \"required\": [\r",
+									"                \"creationTime\",\r",
+									"                \"lastModTime\",\r",
+									"                \"programDescription\",\r",
+									"                \"programId\",\r",
+									"                \"programName\",\r",
+									"                \"programStatus\"\r",
+									"            ]};\r",
+									"pm.test(\"Validating schema\", () => {\r",
+									"    pm.response.to.have.jsonSchema(schema);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Successful POST request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"\r",
+									"//pm.environment.set(\"Random Number\",pm.variables.replaceIn('{{$randomFirstName}}'));\r",
+									"pm.environment.set(\"Random Number\",Math.floor((Math.random()*1000)));\r",
+									"\r",
+									"var current_timestamp = new Date();\r",
+									"postman.setEnvironmentVariable(\"current_timestamp\",current_timestamp.toISOString());"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n{\r\n    \"programName\": \"Jan23-APICoders-SDET-017-{{Random Number}}\",\r\n    \"programDescription\": \"Database Administration Program in 100 days\",\r\n    \"programStatus\": \"Active\",\r\n    \"creationTime\": \"{{current_timestamp}}\",\r\n    \"lastModTime\": \"{{current_timestamp}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/saveprogram",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"saveprogram"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Programs - Count",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Count of Programs\",function(){\r",
+									"const jsonData = pm.response.json();\r",
+									"var count = jsonData.length;\r",
+									"console.log(count)});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/allPrograms",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"allPrograms"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseurl",
+			"value": "https://lms-backend-service.herokuapp.com/lms"
+		}
+	]
+}

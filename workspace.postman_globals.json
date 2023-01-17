@@ -1,0 +1,33 @@
+{
+	"id": "e2fbf0ce-89bf-413a-89ee-e666cc0f1310",
+	"values": [
+		{
+			"key": "programId",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "batchId",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "programName",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "programDescription",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		}
+	],
+	"name": "Globals",
+	"_postman_variable_scope": "globals",
+	"_postman_exported_at": "2023-01-17T02:14:59.870Z",
+	"_postman_exported_using": "Postman/10.8.1"
+}
